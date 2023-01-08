@@ -2,4 +2,4 @@ package dev.jerry.demoordersystem.model;
 
 import java.util.Collection;
 
-public record OrderCreationDTO(Collection<ItemDTO> items) { }
+public record OrderCreationRequestDTO(Collection<ItemDTO> items) { }

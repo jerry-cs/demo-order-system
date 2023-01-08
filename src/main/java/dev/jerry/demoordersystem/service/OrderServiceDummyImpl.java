@@ -1,7 +1,7 @@
 package dev.jerry.demoordersystem.service;
 
-import dev.jerry.demoordersystem.model.Item;
-import dev.jerry.demoordersystem.model.Order;
+import dev.jerry.demoordersystem.entity.Item;
+import dev.jerry.demoordersystem.entity.Order;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -66,6 +66,7 @@ public class OrderServiceDummyImpl implements OrderService {
 
     @Override
     public Order create(Order order) {
+        order.setId(orders.size() + 1);
         orders.add(order);
         return order;
     }

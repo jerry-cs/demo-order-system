@@ -1,6 +1,10 @@
-package dev.jerry.demoordersystem.model;
+package dev.jerry.demoordersystem.util;
 
-import dev.jerry.demoordersystem.util.Calculator;
+import dev.jerry.demoordersystem.entity.Item;
+import dev.jerry.demoordersystem.entity.Order;
+import dev.jerry.demoordersystem.model.ItemDTO;
+import dev.jerry.demoordersystem.model.OrderCreationRequestDTO;
+import dev.jerry.demoordersystem.model.OrderDTO;
 import org.springframework.stereotype.Component;
 
 import java.util.Collection;
@@ -19,10 +23,10 @@ public class Mapper {
         return new ItemDTO(item.getName(), item.getUnitPrice(), item.getQuantity());
     }
 
-    public Order toOrder(OrderCreationDTO orderCreationDTO) {
+    public Order toOrder(OrderCreationRequestDTO orderCreationRequestDTO) {
         Order order = new Order();
-        order.setTotalPrice(Calculator.calcTotalPrice(orderCreationDTO.items()));
-        order.setItems(orderCreationDTO.items().stream().map(this::toItem).collect(Collectors.toSet()));
+        order.setTotalPrice(Calculator.calcTotalPrice(orderCreationRequestDTO.items()));
+        order.setItems(orderCreationRequestDTO.items().stream().map(this::toItem).collect(Collectors.toSet()));
         return order;
     }
 

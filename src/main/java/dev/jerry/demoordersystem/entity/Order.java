@@ -1,4 +1,4 @@
-package dev.jerry.demoordersystem.model;
+package dev.jerry.demoordersystem.entity;
 
 import jakarta.persistence.*;
 

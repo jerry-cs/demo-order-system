@@ -1,9 +1,9 @@
 package dev.jerry.demoordersystem.controller;
 
 import dev.jerry.demoordersystem.exception.OrderNotFoundException;
-import dev.jerry.demoordersystem.model.Mapper;
-import dev.jerry.demoordersystem.model.Order;
-import dev.jerry.demoordersystem.model.OrderCreationDTO;
+import dev.jerry.demoordersystem.util.Mapper;
+import dev.jerry.demoordersystem.entity.Order;
+import dev.jerry.demoordersystem.model.OrderCreationRequestDTO;
 import dev.jerry.demoordersystem.model.OrderDTO;
 import dev.jerry.demoordersystem.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,8 +37,8 @@ public class OrderController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public OrderDTO create(@RequestBody OrderCreationDTO orderCreationDTO) {
-        Order order = mapper.toOrder(orderCreationDTO);
+    public OrderDTO create(@RequestBody OrderCreationRequestDTO orderCreationRequestDTO) {
+        Order order = mapper.toOrder(orderCreationRequestDTO);
         orderService.create(order);
         return mapper.toDto(order);
     }

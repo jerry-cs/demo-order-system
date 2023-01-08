@@ -1,6 +1,6 @@
 package dev.jerry.demoordersystem.service;
 
-import dev.jerry.demoordersystem.model.Order;
+import dev.jerry.demoordersystem.entity.Order;
 
 import java.util.Collection;
 import java.util.Optional;
