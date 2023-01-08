@@ -1,14 +1,14 @@
 package dev.jerry.demoordersystem.model;
 
 import jakarta.persistence.*;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.Collection;
-import java.util.TreeSet;
 
 @Entity
+@NoArgsConstructor
 public class Item implements Serializable, Comparable<Item> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,12 +17,8 @@ public class Item implements Serializable, Comparable<Item> {
     private BigDecimal unitPrice;
     private int quantity;
 
-    @ManyToMany
-    private Collection<Order> orders;
-
-    public Item() {
-        orders = new TreeSet<>();
-    }
+    @ManyToOne
+    private Order order;
 
     public long getId() {
         return id;
@@ -57,17 +53,12 @@ public class Item implements Serializable, Comparable<Item> {
         this.quantity = quantity;
     }
 
-    public Collection<Order> getOrders() {
-        return orders;
+    public Order getOrder() {
+        return order;
     }
 
-    public void setOrders(Collection<Order> orders) {
-        this.orders = orders;
-    }
-
-    public void addOrder(Order order) {
-        getOrders().add(order);
-        order.getItems().add(this);
+    public void setOrder(Order order) {
+        this.order = order;
     }
 
     @Override
@@ -77,7 +68,7 @@ public class Item implements Serializable, Comparable<Item> {
                 ", name='" + name + '\'' +
                 ", unitPrice=" + unitPrice +
                 ", quantity=" + quantity +
-                ", orders=" + orders +
+                ", orderId=" + order.getId() +
                 '}';
     }
 

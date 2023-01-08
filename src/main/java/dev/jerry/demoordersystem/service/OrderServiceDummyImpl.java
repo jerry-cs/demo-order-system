@@ -2,12 +2,14 @@ package dev.jerry.demoordersystem.service;
 
 import dev.jerry.demoordersystem.model.Item;
 import dev.jerry.demoordersystem.model.Order;
+import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
 
+@Service
 public class OrderServiceDummyImpl implements OrderService {
 
     private final Collection<Order> orders;
@@ -64,7 +66,8 @@ public class OrderServiceDummyImpl implements OrderService {
 
     @Override
     public Order create(Order order) {
-        return null;
+        orders.add(order);
+        return order;
     }
 
     @Override

@@ -3,14 +3,12 @@ package dev.jerry.demoordersystem.controller;
 import dev.jerry.demoordersystem.exception.OrderNotFoundException;
 import dev.jerry.demoordersystem.model.Mapper;
 import dev.jerry.demoordersystem.model.Order;
+import dev.jerry.demoordersystem.model.OrderCreationDTO;
 import dev.jerry.demoordersystem.model.OrderDTO;
 import dev.jerry.demoordersystem.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -19,7 +17,6 @@ import java.util.stream.Collectors;
 @RequestMapping("/orders")
 public class OrderController {
     @Autowired
-    @Qualifier(value = "orderServiceInCache")
     private OrderService orderService;
 
     @Autowired
@@ -36,6 +33,14 @@ public class OrderController {
     public OrderDTO findById(@PathVariable("id") long id) throws OrderNotFoundException {
         Order existing = orderService.findById(id).orElseThrow(()-> new OrderNotFoundException("Cannot find Order of id: " + id));
         return mapper.toDto(existing);
+    }
+
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping
+    public OrderDTO create(@RequestBody OrderCreationDTO orderCreationDTO) {
+        Order order = mapper.toOrder(orderCreationDTO);
+        orderService.create(order);
+        return mapper.toDto(order);
     }
 
 }

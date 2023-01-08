@@ -16,7 +16,7 @@ public class Order implements Serializable, Comparable<Order> {
 
     private BigDecimal totalPrice;
 
-    @ManyToMany
+    @OneToMany
     private Collection<Item> items;
 
     public Order() {
@@ -50,7 +50,7 @@ public class Order implements Serializable, Comparable<Order> {
 
     public void addItem(Item item) {
         getItems().add(item);
-        item.getOrders().add(this);
+        item.setOrder(this);
     }
 
     @Override
